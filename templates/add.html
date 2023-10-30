@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="col-md-12 ">
+        <br>
+        <h3>Application Form</h3>
+        <form method="post"  >
+            {% csrf_token %}
+            <div class="input-field mb-3 ">
+                <label  for="name">Name</label>
+                <input type="text" id="name" class="form-control" name="name" required>
+
+            </div>
+            <div class="input-field mb-3 ">
+                <label for="email">Email-ID</label>
+                <input type="email" id="email" class="form-control" name="email" required>
+
+            </div>
+            <div class="input-field mb-3">
+                <label for="District">District</label>
+                 <select name="district" id="District" class="form-control" required>
+                    <option value="" disabled selected>--Select District--</option>
+                    {% for item in district  %}
+                    <option value="{{ item.id }}">{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-field mb-3">
+                <label for="Branch">Branch</label>
+                <select name="branch" id="Branch" class="form-control" required>
+                <option value="" disabled selected>--Select Branch--</option>
+
+                </select>
+            </div>
+            <div class="input-field mb-3">
+                <label for="age">Age</label>
+                <input type="number" id="age" class="form-control" name="age" required>
+
+            </div>
+
+            <div class="input-field mb-3">
+                <label for="DOB">Date of Birth</label>
+                <input type="date" id="DOB" class="form-control" name="DOB" required>
+
+            </div>
+
+            <div class="input-field mb-3">
+                <label for="address">Address</label>
+                <input class="form-control" id="address" name="address" type="text" required ></input>
+
+            </div>
+            <div class="input-field mb-3">
+                <label for="phone_number">Phone Number</label>
+                <input type="number" id="phone_number" class="form-control" name="phone_number" required>
+
+            </div>
+            <div class="input-field mb-3">
+                <label for="gender">Gender</label>
+                <select class="form-control" name="gender" id="gender" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+            </div>
+
+            <div class="input-field mb-3">
+                <label for="account_type">Account Type</label>
+                <select class="form-control" name="account_type" id="account_type" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="savings">Savings</option>
+                    <option value="NRI">NRI</option>
+                    <option value="credit">Credit</option>
+                </select>
+
+            </div>
+
+            <p>Materials:
+
+                <input type="checkbox"  name="debit" value=True />Debit Card &nbsp
+                <input type="checkbox"  name="credit" value=True />Credit Card &nbsp
+                <input type="checkbox"  name="cheque" value=True />Cheque Book
+
+                </p>
+
+
+
+            <br><input type="submit">
+        </form>
+    </div>
+
+    </div>
+<script>
+document.getElementById('District').addEventListener('change', function () {
+  var category_id = this.value;
+  var itemSelect = document.getElementById('Branch');
+  itemSelect.innerHTML = '<option value="" disabled selected>--Select Branch--</option>';
+  if (category_id) {
+    fetch('/get_items/' + category_id + '/')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        data.forEach(function (Branch) {
+          var option = document.createElement('option');
+          option.value = Branch.id;
+          option.text = Branch.name;
+          itemSelect.appendChild(option);
+        });
+      });
+  }
+});
+
+
+</script>
+{% endblock %}

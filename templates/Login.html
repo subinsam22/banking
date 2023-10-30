@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<body >
+
+
+    <div class="form-row align-items-center">
+        <br><br><br>
+   <form class="form-signin" method="post">
+     {% csrf_token %}
+      <h2 class="form-signin-heading">Please login</h2>
+      <input type="text" class="form-control" name="username" placeholder="User Name" required="" autofocus="" />
+      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+   </form>
+    {% for msg in messages %}
+      <h4 style="color:red"> {{msg}} </h4>
+    {% endfor %}
+
+    <p class="text-center">Not a member? <a href="{% url 'authen:registration' %}">Sign up now</a>
+  </div>
+
+
+
+</body>
+<!-- partial -->
+<!--<body>-->
+<!--<form action="" method="post">-->
+<!--      {% csrf_token %}-->
+<!--      <input type="text" name="username" placeholder="Enter the username">-->
+<!--      <input type="password" name="password" placeholder="Enter the password">-->
+<!--      <input type="submit" placeholder="Login">-->
+
+<!--</form>-->
+
+{% endblock %}

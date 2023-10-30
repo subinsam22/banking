@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br><br>
+<div class="container ">
+  <div class=" card-body col-md-12"  >
+
+   <h2 style="font-siz:50px;color:#3333ff"> <a class="card-title" href="{% url 'bankapp:add' %}" ><img src="{% static 'file-new-icon.png' %} "width='40px' height='40px'></a>  New Application</h2>
+  </div>
+</div>
+
+<br><br>
+<div class="container text-center">
+<h2>Submitted Applications</h2>
+</div>
+<div class="container">
+{% if not details %}
+<h5 class="text-center">You do not have any submitted application.Please click new application to create new application</h5>
+{% endif %}
+  </div>
+<div class="card " >
+  {% for detail in details %}
+  <div class="card-body col-md-12"  style="margin-left: .38rem !important;
+            margin-right: .38rem !important;
+
+            background-color: #f2f2f2 !important;
+            padding: 1rem !important;
+            box-sizing: border-box !important;
+            border: 2px solid gray !important;">
+
+    <h5 class="card-title">ID No.{{detail.id}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">created at {{detail.created}}</h6>
+    <p class="card-text">The application was filed for applicant {{detail.name }} aged {{detail.age}} residing at {{detail.address}} with account at {{detail.district}},{{detail.branch}} branch having {{detail.account_type}} account have requested for following materials {% if detail.debit %} Debit Card, {% endif %} {% if detail.credit %} Credit Card, {% endif %}  {% if detail.cheque %} Cheque Book {% endif %}</p>
+    <a href="{% url 'bankapp:edit' detail.id %}" class="card-link">Edit</a>
+    <a href="{% url 'bankapp:delete' detail.id %}" class="card-link">Delete</a>
+
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}

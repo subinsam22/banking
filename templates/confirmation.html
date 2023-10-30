@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br><br>
+<div class="container" >
+    <h4 class="text-center">The application has been accepted.Please wait till we get back to you.</h4>
+    <h5 class="text-center"> Mean-while you can check your application at this <a href="{% url 'bankapp:details' %}">link</a> </h5>
+    <h5 class="text-center"> go back to the homepage by clicking this <a href="/" >link </a></h5>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br><br><br>
+<form method="post">
+  {% csrf_token %}
+  <h4 style="text-align:center" >Do you want to continue
+  <input type="submit" value="Yes">
+    </h4>
+</form>
+{% endblock  %}
